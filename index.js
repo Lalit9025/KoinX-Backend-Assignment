@@ -1,5 +1,6 @@
 import express from 'express'
 import connectDB from './config/db.js'
+import fetchCryptoPrices from './jobs/fetchPrices.js'
 import cryptoRoutes from './routes/cryptoRoutes.js'
 import dotenv from 'dotenv'
 import schedulePriceFetching from './jobs/fetchPrices.js'
@@ -14,6 +15,10 @@ connectDB();
 app.use(express.json());
 
 app.use('/api', cryptoRoutes);
+
+app.get('/', (req, res) => {
+    res.json({ message: 'Welcome to Lalit\'s KoinX Backend Internship Assignment' });
+});
 
 app.get('/health', (req, res) => {
     res.json({ status: 'healthy', timestamp: new Date().toISOString() });
